@@ -17,20 +17,20 @@ const defaultCapabilities = {
 	directoryScoping: true,
 } as const;
 
-function buildArgs(task: TaskDefinition, worktreePath: string, options: ClaudeCodeDriverOptions) {
-	const args = options.args ?? process.env.CLAUDE_CODE_ARGS?.split(" ").filter(Boolean) ?? ["code"];
-	const fullArgs = [...args];
+function buildArgs(task: TaskDefinition, _worktreePath: string, options: ClaudeCodeDriverOptions) {
+	const baseArgs = options.args ?? process.env.CLAUDE_CODE_ARGS?.split(" ").filter(Boolean) ?? [];
+	const fullArgs = [...baseArgs];
 
-	// Claude Code CLI accepts project path + prompt; default to --project-path semantics
-	fullArgs.push("--project-path", worktreePath);
-	fullArgs.push("--prompt", task.prompt);
+	fullArgs.push("--print");
+	fullArgs.push("--output-format", "json");
+	fullArgs.push("--no-session-persistence");
 
 	const model = options.model ?? process.env.CLAUDE_CODE_MODEL;
 	if (model) {
 		fullArgs.push("--model", model);
 	}
 
-	fullArgs.push("--output-format", "json");
+	fullArgs.push(task.prompt);
 	return fullArgs;
 }
 
