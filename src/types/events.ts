@@ -1,0 +1,15 @@
+export type ShiftEventType =
+	| "shift:started"
+	| "shift:completed"
+	| "shift:failed"
+	| "shift:cancelled"
+	| "task:pending"
+	| "task:assigned"
+	| "task:running"
+	| "task:completed"
+	| "task:failed"
+	| "task:review"
+	| "agent:spawned"
+	| "agent:output"
+	| "agent:terminated"
+	| "agent:errored";
