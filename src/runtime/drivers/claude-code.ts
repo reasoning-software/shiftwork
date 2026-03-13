@@ -30,6 +30,11 @@ function buildArgs(task: TaskDefinition, _worktreePath: string, options: ClaudeC
 		fullArgs.push("--permission-mode", permissionMode);
 	}
 
+	const skipPermissions = process.env.CLAUDE_CODE_SKIP_PERMISSIONS ?? "true";
+	if (skipPermissions !== "false") {
+		fullArgs.push("--dangerously-skip-permissions");
+	}
+
 	const model = options.model ?? process.env.CLAUDE_CODE_MODEL;
 	if (model) {
 		fullArgs.push("--model", model);
