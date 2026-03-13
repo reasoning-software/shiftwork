@@ -25,6 +25,11 @@ function buildArgs(task: TaskDefinition, _worktreePath: string, options: ClaudeC
 	fullArgs.push("--output-format", "json");
 	fullArgs.push("--no-session-persistence");
 
+	const permissionMode = process.env.CLAUDE_CODE_PERMISSION_MODE ?? "dontAsk";
+	if (permissionMode) {
+		fullArgs.push("--permission-mode", permissionMode);
+	}
+
 	const model = options.model ?? process.env.CLAUDE_CODE_MODEL;
 	if (model) {
 		fullArgs.push("--model", model);
