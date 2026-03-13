@@ -21,7 +21,6 @@ const DEFAULT_BASE_BRANCH = "main";
 
 export function createWorktreeManager(repoRoot: string): WorktreeManager {
 	const worktreeRoot = join(repoRoot, ".shiftwork");
-	const git = $({ cwd: repoRoot });
 	const registry = new Map<string, WorktreeInfo>();
 
 	async function ensureWorktreeRoot() {
@@ -39,7 +38,7 @@ export function createWorktreeManager(repoRoot: string): WorktreeManager {
 			const branch = `shiftwork/${sanitized}`;
 			const worktreePath = join(worktreeRoot, sanitized);
 
-			await git`git worktree add ${worktreePath} -b ${branch} ${baseBranch}`;
+			await $`git -C ${repoRoot} worktree add ${worktreePath} -b ${branch} ${baseBranch}`;
 
 			const info: WorktreeInfo = { path: worktreePath, branch, taskId };
 			registry.set(worktreePath, info);
@@ -48,10 +47,10 @@ export function createWorktreeManager(repoRoot: string): WorktreeManager {
 
 		async remove(path) {
 			const info = registry.get(path);
-			await git`git worktree remove ${path}`;
+			await $`git -C ${repoRoot} worktree remove ${path}`;
 			if (info?.branch) {
 				try {
-					await git`git branch -D ${info.branch}`;
+					await $`git -C ${repoRoot} branch -D ${info.branch}`;
 				} catch (error) {
 					// Branch might already be gone—surface the original worktree removal result instead
 					console.warn(`[shiftwork] Unable to delete branch ${info.branch}:`, error);

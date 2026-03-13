@@ -35,8 +35,7 @@ function resolveDriver(name: string, config?: DriverConfig) {
 async function determineBaseBranch(repoRoot: string, requested?: string) {
 	if (requested) return requested;
 	try {
-		const git = $({ cwd: repoRoot });
-		const result = await git`git rev-parse --abbrev-ref HEAD`;
+		const result = await $`git -C ${repoRoot} rev-parse --abbrev-ref HEAD`;
 		const branch = (await result.text()).trim();
 		return branch || "main";
 	} catch {
