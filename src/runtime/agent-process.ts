@@ -48,6 +48,10 @@ export function createProcessManager(): ProcessManager {
 
 			register(subprocess, info);
 
+			if (options?.closeStdin) {
+				subprocess.stdin?.end?.();
+			}
+
 			const output = createOutputStream();
 			const decoder = new TextDecoder();
 

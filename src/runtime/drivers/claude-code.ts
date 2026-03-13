@@ -43,7 +43,7 @@ export function createClaudeCodeDriver(options: ClaudeCodeDriverOptions = {}): A
 		capabilities: defaultCapabilities,
 		spawn(task, worktreePath, spawnOptions) {
 			const args = buildArgs(task, worktreePath, options);
-			return processManager.spawn(binary, args, worktreePath, spawnOptions);
+			return processManager.spawn(binary, args, worktreePath, { ...spawnOptions, closeStdin: true });
 		},
 	};
 }
