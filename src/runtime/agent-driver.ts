@@ -19,6 +19,7 @@ export interface SpawnOptions {
 	readonly env?: Record<string, string>;
 	readonly timeout?: number;
 	readonly signal?: AbortSignal;
+	readonly closeStdin?: boolean;
 }
 
 export interface AgentHandle {
