@@ -1,0 +1,174 @@
+/*
+ * dialog.css — Styles for the SpawnAgentDialog and future modal dialogs.
+ *
+ * Uses a centered overlay pattern with backdrop blur. The dialog itself
+ * follows the same Tokyo Night design language as the rest of the app.
+ */
+
+/* ---------------------------------------------------------------------------
+   Overlay
+   --------------------------------------------------------------------------- */
+
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+}
+
+/* ---------------------------------------------------------------------------
+   Dialog Container
+   --------------------------------------------------------------------------- */
+
+.dialog {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  width: 480px;
+  max-width: 90vw;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+}
+
+.dialog-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--fg-primary);
+  margin-bottom: 20px;
+}
+
+/* ---------------------------------------------------------------------------
+   Form Fields
+   --------------------------------------------------------------------------- */
+
+.dialog-field {
+  margin-bottom: 16px;
+}
+
+.dialog-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--fg-secondary);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.dialog-hint {
+  font-size: 12px;
+  color: var(--fg-muted);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+.dialog-input,
+.dialog-textarea {
+  width: 100%;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--fg-primary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 8px 12px;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.dialog-input:focus,
+.dialog-textarea:focus {
+  border-color: var(--accent-blue);
+}
+
+.dialog-textarea {
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.5;
+}
+
+/* ---------------------------------------------------------------------------
+   Agent Selector
+   --------------------------------------------------------------------------- */
+
+.agent-selector {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.agent-option {
+  padding: 6px 14px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--fg-secondary);
+  cursor: pointer;
+  font-size: 13px;
+  transition: all var(--transition-fast);
+}
+
+.agent-option:hover {
+  border-color: var(--fg-muted);
+  color: var(--fg-primary);
+}
+
+.agent-option.selected {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  background: var(--bg-active);
+}
+
+/* ---------------------------------------------------------------------------
+   Dialog Actions
+   --------------------------------------------------------------------------- */
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.dialog-cancel {
+  padding: 8px 16px;
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--fg-secondary);
+  cursor: pointer;
+  font-size: 13px;
+  transition: all var(--transition-fast);
+}
+
+.dialog-cancel:hover {
+  border-color: var(--fg-muted);
+  color: var(--fg-primary);
+}
+
+.dialog-confirm {
+  padding: 8px 20px;
+  background: var(--accent-blue);
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--bg-primary);
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 13px;
+  transition: opacity var(--transition-fast);
+}
+
+.dialog-confirm:hover {
+  opacity: 0.9;
+}
+
+.dialog-confirm:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
